@@ -1,4 +1,11 @@
-import { Box, Button, Grid, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  LinearProgress,
+  Paper,
+  Typography,
+} from "@mui/material";
 import { CheckCircleOutline } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import useHabitStore from "../store/store";
@@ -55,6 +62,10 @@ const HabitList = () => {
               </Box>
             </Grid>
           </Grid>
+          <Box sx={{ mt: 2 }}>
+            <Typography>Current Streak : </Typography>
+            <LinearProgress variant="determinate" value={10} />
+          </Box>
         </Paper>
       ))}
     </Box>
