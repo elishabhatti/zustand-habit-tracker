@@ -1,11 +1,5 @@
-import {
-  Box,
-  Button,
-  Grid,
-  LinearProgress,
-  Paper,
-  Typography,
-} from "@mui/material";
+import Grid from "@mui/material/Grid";
+import { Box, Button, LinearProgress, Paper, Typography } from "@mui/material";
 import { CheckCircleOutline } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import useHabitStore, { type Habit } from "../store/store";
