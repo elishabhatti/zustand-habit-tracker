@@ -16,16 +16,15 @@ const AddHabitForm = () => {
   const { habits, addHabit } = useHabitStore();
 
   console.log("Current Habits:", habits);
-  
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (name.trim() === "") return;
     addHabit(name, frequency);
-    setName(""); 
+    setName("");
     setFrequency("daily");
     console.log("Current Habits:", habits);
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -47,7 +46,7 @@ const AddHabitForm = () => {
           <InputLabel id="demo-simple-select-label">Age</InputLabel>
           <Select
             value={frequency}
-            label="Age"
+            label="Frequency"
             onChange={(e) => setFrequency(e.target.value as "daily" | "weekly")}
           >
             <MenuItem value="daily">Daily</MenuItem>
