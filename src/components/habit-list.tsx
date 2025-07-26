@@ -8,11 +8,25 @@ import {
 } from "@mui/material";
 import { CheckCircleOutline } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import useHabitStore from "../store/store";
+import useHabitStore, { type Habit } from "../store/store";
 
 const HabitList = () => {
   const { habits, removeHabit, toggleHabit } = useHabitStore();
   const today = new Date().toISOString().split("T")[0];
+  const getStreak = (habit: Habit) => {
+    let streak = 0;
+    const currentDate = new Date();
+    while (true) {
+      const dateString = currentDate.toISOString().split("T")[0];
+      if (habit.completedDates.includes(dateString)) {
+        streak++;
+        currentDate.setDate(currentDate.getDate() - 1);
+      } else {
+        break;
+      }
+    }
+    return streak;
+  };
 
   return (
     <Box sx={{ mt: 2, p: 2, display: "flex", flexDirection: "column", gap: 2 }}>
@@ -63,8 +77,11 @@ const HabitList = () => {
             </Grid>
           </Grid>
           <Box sx={{ mt: 2 }}>
-            <Typography>Current Streak : </Typography>
-            <LinearProgress variant="determinate" value={10} />
+            <Typography>Current Streak : {getStreak(habit)} </Typography>
+            <LinearProgress
+              variant="determinate"
+              value={(getStreak(habit) / 30) * 100}
+            />
           </Box>
         </Paper>
       ))}
