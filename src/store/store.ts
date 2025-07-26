@@ -13,6 +13,9 @@ interface HabitState {
   addHabit: (name: string, frequency: "daily" | "weekly") => void;
   removeHabit: (id: string) => void;
   toggleHabit: (id: string, date: string) => void;
+  fetchHabits?: (id: string, date: string) => void;
+  isLoading: boolean;
+  error: string | null;
 }
 
 const useHabitStore = create<HabitState>()(
@@ -53,6 +56,38 @@ const useHabitStore = create<HabitState>()(
                   : habit
               ),
             })),
+          fetchHabits: async (id, date) => {
+            set({ isLoading: true });
+            try {
+              await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate API call
+              const mockHabits: Habit[] = [
+                {
+                  id: "1",
+                  name: "Exercise",
+                  frequency: "daily",
+                  completedDates: ["2023-10-01", "2023-10-02"],
+                  createdAt: "2023-10-01T00:00:00Z",
+                },
+                {
+                  id: "2",
+                  name: "Read a book",
+                  frequency: "weekly",
+                  completedDates: ["2023-10-01"],
+                  createdAt: "2023-10-01T00:00:00Z",
+                },
+              ];
+              set({
+                habits: mockHabits,
+                isLoading: false,
+                error: null,
+              });
+            } catch (error) {
+              set({
+                isLoading: false,
+                error: "Failed to fetch habits",
+              });
+            }
+          },
         };
       },
       { name: "habits-local", storage: createJSONStorage(() => localStorage) }
