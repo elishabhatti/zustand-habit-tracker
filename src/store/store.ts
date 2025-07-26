@@ -38,6 +38,19 @@ const useHabitStore = create<HabitState>()(
         set((state) => ({
           habits: state.habits.filter((habit) => habit.id !== id),
         })),
+      toggleHabit: (id, date) =>
+        set((state) => ({
+          habits: state.habits.map((habit) =>
+            habit.id === id
+              ? {
+                  ...habit,
+                  completedDates: habit.completedDates.includes(date)
+                    ? habit.completedDates.filter((d) => d !== date)
+                    : [...habit.completedDates, date],
+                }
+              : habit
+          ),
+        })),
     };
   })
 );

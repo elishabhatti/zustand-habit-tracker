@@ -4,7 +4,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import useHabitStore from "../store/store";
 
 const HabitList = () => {
-  const { habits, removeHabit } = useHabitStore();
+  const { habits, removeHabit, toggleHabit } = useHabitStore();
   const today = new Date().toISOString().split("T")[0];
 
   return (
@@ -34,6 +34,7 @@ const HabitList = () => {
               >
                 <Button
                   variant="outlined"
+                  onClick={() => toggleHabit(habit.id, today)}
                   color={
                     habit.completedDates.includes(today) ? "success" : "primary"
                   }
