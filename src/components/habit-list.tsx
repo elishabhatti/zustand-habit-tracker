@@ -1,10 +1,10 @@
 import { Box, Button, Grid, Paper, Typography } from "@mui/material";
-import { CheckCircleOutline} from "@mui/icons-material";
+import { CheckCircleOutline } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import useHabitStore from "../store/store";
 
 const HabitList = () => {
-  const { habits } = useHabitStore();
+  const { habits, removeHabit } = useHabitStore();
   const today = new Date().toISOString().split("T")[0];
 
   return (
@@ -44,6 +44,7 @@ const HabitList = () => {
                     : "Mark Completed"}
                 </Button>
                 <Button
+                  onClick={() => removeHabit(habit.id)}
                   startIcon={<DeleteIcon />}
                   variant="outlined"
                   color="error"
