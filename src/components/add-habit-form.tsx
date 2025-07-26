@@ -8,13 +8,27 @@ import {
   TextField,
 } from "@mui/material";
 import { useState } from "react";
+import useHabitStore from "../store/store";
 
 const AddHabitForm = () => {
   const [name, setName] = useState("");
   const [frequency, setFrequency] = useState<"daily" | "weekly">("daily");
+  const { habits, addHabit } = useHabitStore();
+
+  console.log("Current Habits:", habits);
+  
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (name.trim() === "") return;
+    addHabit(name, frequency);
+    setName(""); 
+    setFrequency("daily");
+    console.log("Current Habits:", habits);
+  }
 
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <Box
         sx={{
           display: "flex",
@@ -44,7 +58,7 @@ const AddHabitForm = () => {
           Add Habit
         </Button>
       </Box>
-    </div>
+    </form>
   );
 };
 

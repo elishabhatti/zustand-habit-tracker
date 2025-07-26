@@ -19,8 +19,9 @@ const useHabitStore = create<HabitState>()((set) => {
       set((state) => {
         return {
           habits: [
+            ...state.habits,
             {
-              id: "1",
+              id: Date.now().toString(),
               name,
               frequency,
               completedDates: [],
